@@ -16,13 +16,13 @@ a, button {
 }
 
 .title-sm {
-  font-size: 125%;
+  font-size: 125;
 }
 
 .text-sm {
   font-size: 80%;
 }
 
-.hidden_text {
-  opacity: 50%;
+.text-grey {
+  color: #a0a0a0;
 }
