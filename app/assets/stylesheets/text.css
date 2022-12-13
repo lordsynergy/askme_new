@@ -15,6 +15,10 @@ a, button {
   font-size: 150%;
 }
 
+.hidden-text {
+  opacity: 50%;
+}
+
 .title-sm {
   font-size: 125%;
 }
