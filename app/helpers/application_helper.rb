@@ -9,4 +9,10 @@ module ApplicationHelper
       many
     end
   end
+
+  def navbar_color
+    if current_user.present?
+      current_user.navbar_color
+    end
+  end
 end
