@@ -1,5 +1,5 @@
 <div class="mb-sm <%= 'hidden-text' if question.hidden? %>">
-  <%= question.body %>
+  <%= simple_format(question.body) %>
 </div>
 
 <div class="text-sm question-footer">
