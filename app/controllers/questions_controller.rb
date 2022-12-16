@@ -16,6 +16,7 @@ class QuestionsController < ApplicationController
   end
 
   def update
+    question_params = params.require(:question).permit(:body, :answer)
     @question.update(question_params)
 
     redirect_to user_path(@question.user), notice: 'Обновили вопрос!'
@@ -55,10 +56,6 @@ class QuestionsController < ApplicationController
 
   def ensure_current_user
     redirect_with_alert unless current_user.present?
-  end
-
-  def question_params
-    params.require(:question).permit(:body, :user_id)
   end
 
   def set_question_for_current_user
