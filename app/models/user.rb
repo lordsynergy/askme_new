@@ -9,6 +9,6 @@ class User < ApplicationRecord
   validates :nickname, presence: true, uniqueness: true, length: { in: 3..40 }, format: { with: /\A\w+\z/ }
 
   def downcase_nickname
-    nickname.downcase!
+    nickname&.downcase!
   end
 end
