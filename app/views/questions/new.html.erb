@@ -9,5 +9,7 @@
     </div>
   <% end %>
 
+  <p class="mb">для <%= link_to display_nickname(@user), user_path(@user) %></p>
+
   <%= render 'form', question: @question %>
 </div>

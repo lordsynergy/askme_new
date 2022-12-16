@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[update edit destroy]
+  before_action :set_user, only: %i[update edit destroy show]
+  before_action :autorize_user, only: %i[edit update destroy]
 
   def new
     session[:current_time] = Time.now
@@ -7,7 +8,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
+    @user = User.create(user_params)
 
     if @user.save
       redirect_to root_path, notice: 'Вы успешно зарегистрировались!'
@@ -43,7 +44,15 @@ class UsersController < ApplicationController
     redirect_to root_path, notice: 'Пользователь удален'
   end
 
+  def show
+    @questions = @user.questions
+    @question = Question.new(user: @user)
+  end
+
   private
+  def autorize_user
+    redirect_with_alert unless current_user == @user
+  end
 
   def set_user
     @user = User.find(params[:id])
