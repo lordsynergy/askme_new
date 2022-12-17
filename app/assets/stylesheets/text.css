@@ -42,3 +42,11 @@ a, button {
 .text-dark-red {
   color: #9D0208;
 }
+
+.text-center {
+  text-align: center;
+}
+
+.text-grey {
+  color: #89898a;
+}
