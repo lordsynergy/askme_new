@@ -1,5 +1,5 @@
 <div class="mb-sm <%= 'hidden-text' if question.hidden? %>">
-  <%= simple_format(question.body) %>
+  <%= simple_format(strip_tags(question.body)) %>
 </div>
 
 <% if question.answer.present? %>
