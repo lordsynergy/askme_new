@@ -11,6 +11,12 @@
 <div class="text-sm question-footer">
   <div class="text-grey">
     <%= l(question.created_at, format: :short) %>
+    <p>от:
+    <% if question.author.present? %>
+      <%= link_to display_nickname(question.author), user_path(question.author), class: 'mr-sm' %>
+    <% else %>
+      Unknown</p>
+    <% end %>
   </div>
 
   <% if current_user == question.user %>
