@@ -50,6 +50,7 @@ class UsersController < ApplicationController
   end
 
   private
+
   def autorize_user
     redirect_with_alert unless current_user == @user
   end
