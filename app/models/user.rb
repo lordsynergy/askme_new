@@ -17,6 +17,11 @@ class User < ApplicationRecord
   end
 
   def set_color_navbar
-    self.navbar_color = '#370617'
+    if self[:navbar_color].present?
+      self[:navbar_color]
+    else
+      self.navbar_color = '#370617'
+    end
   end
+
 end
