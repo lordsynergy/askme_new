@@ -10,6 +10,9 @@ class User < ApplicationRecord
   validates :nickname, presence: true, uniqueness: true, length: { in: 3..40 }, format: { with: /\A\w+\z/ }
   validates :navbar_color, format: { with: /\A#[a-f0-9]{6}\z/i }
 
+  include Gravtastic
+  gravtastic(secure: true, filetype: :png, size: 100, default: 'retro')
+
   private
 
   def downcase_nickname
@@ -17,9 +20,7 @@ class User < ApplicationRecord
   end
 
   def set_color_navbar
-    if self[:navbar_color].present?
-      self[:navbar_color]
-    else
+    unless self.navbar_color.present?
       self.navbar_color = '#370617'
     end
   end
