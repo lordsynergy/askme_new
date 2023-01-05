@@ -6,9 +6,16 @@ class Question < ApplicationRecord
 
   validates :body, presence: true, length: { maximum: 280 }
 
+  before_save :downcase_hashtags_body_and_answer
+
   after_save_commit :find_and_create_hashtags
 
   private
+
+  def downcase_hashtags_body_and_answer
+    body.gsub!(/#[[:word:]-]+/) { |tag| tag&.downcase }
+    answer&.gsub!(/#[[:word:]-]+/) { |tag| tag&.downcase }
+  end
 
   def find_and_create_hashtags
     question_hashtags = "#{body} + #{answer}".scan(/#[[:word:]-]+/)
