@@ -17,6 +17,9 @@
     <% else %>
       Анонима</p>
     <% end %>
+    <% question.hashtags.each do |hashtag| %>
+      <b class="text-red"><%= hashtag.name %></b>
+    <% end %>
   </div>
 
   <% if current_user == question.user %>
