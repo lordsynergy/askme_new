@@ -8,12 +8,6 @@ class QuestionsController < ApplicationController
     @question.author = current_user
 
     if @question.save
-      @question_hashtags = @question.body.scan(/#[[:word:]-]+/)
-
-      @question_hashtags.each do |tag|
-        @question.hashtags << Hashtag.find_or_create_by(name: tag)
-      end
-
       redirect_to user_path(@question.user), notice: 'Новый вопрос создан!'
     else
       flash.now[:alert] = 'Вы неправильно заполнили текст вопроса'

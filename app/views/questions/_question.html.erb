@@ -1,5 +1,5 @@
 <div class="mb-sm <%= 'hidden-text' if question.hidden? %>">
-  <%= simple_format(strip_tags(question.body)) %>
+  <%= simple_format h(body_with_link_hashtag(question)) %>
 </div>
 
 <% if question.answer.present? %>
@@ -16,9 +16,6 @@
       <%= link_to display_nickname(question.author), user_path(question.author), class: 'mr-sm' %>
     <% else %>
       Анонима</p>
-    <% end %>
-    <% question.hashtags.each do |hashtag| %>
-      <b class="text-red"><%= hashtag.name %></b>
     <% end %>
   </div>
 
