@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :hashtags
   root to: 'questions#index'
 
   resources :questions
@@ -11,4 +12,5 @@ Rails.application.routes.draw do
 
   resource :session, only: %i[new create destroy]
   resources :users, except: %i[index]
+  resources :hashtags, only: %i[show]
 end

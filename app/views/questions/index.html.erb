@@ -11,6 +11,14 @@
 </div>
 
 <div class="container mt-sm">
+  <% @hashtags.each do |hashtag| %>
+    <p class="text-sm">
+      <%= link_to hashtag.name, hashtag_path(hashtag) %>
+  <% end %>
+  </p>
+</div>
+
+<div class="container mt-sm">
   <h2 class="title-lg">
     <%= inclination(@questions.count, 'Последний', 'Последние', 'Последние') %>
     <%= @questions.count %>

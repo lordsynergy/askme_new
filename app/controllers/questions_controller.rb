@@ -8,6 +8,12 @@ class QuestionsController < ApplicationController
     @question.author = current_user
 
     if @question.save
+      @question_hashtags = @question.body.scan(/#[[:word:]-]+/)
+
+      @question_hashtags.each do |tag|
+        @question.hashtags << Hashtag.find_or_create_by(name: tag)
+      end
+
       redirect_to user_path(@question.user), notice: 'Новый вопрос создан!'
     else
       flash.now[:alert] = 'Вы неправильно заполнили текст вопроса'
@@ -37,6 +43,7 @@ class QuestionsController < ApplicationController
   def index
     @questions = Question.order(created_at: :desc).last(10)
     @users = User.order(created_at: :desc).last(10)
+    @hashtags = Hashtag.all.limit(10)
   end
 
   def new
