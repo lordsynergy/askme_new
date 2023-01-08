@@ -2,26 +2,26 @@ class Question < ApplicationRecord
   belongs_to :user
   belongs_to :author, class_name: 'User', optional: true
   has_many :question_hashtags, dependent: :destroy
-  has_many :hashtags, through: :question_hashtags, dependent: :destroy
+  has_many :hashtags, through: :question_hashtags, source: :hashtag
 
   validates :body, presence: true, length: { maximum: 280 }
 
-  before_save :downcase_hashtags_body_and_answer
-
-  after_save_commit :find_and_create_hashtags
+  before_save :find_and_create_hashtags
+  after_commit :destroy_unused_tags
 
   private
 
-  def downcase_hashtags_body_and_answer
-    body.gsub!(/#[[:word:]-]+/) { |tag| tag&.downcase }
-    answer&.gsub!(/#[[:word:]-]+/) { |tag| tag&.downcase }
+  def find_and_create_hashtags
+    body_hashtags = self.body.scan(/#[[:word:]-]+/)
+    answer_hashtags = self.answer.to_s.scan(/#[[:word:]-]+/)
+    question_hashtags = body_hashtags | answer_hashtags
+
+    self.hashtags = question_hashtags.map do |tag|
+      Hashtag.find_or_create_by(name: tag)
+    end
   end
 
-  def find_and_create_hashtags
-    question_hashtags = "#{body} + #{answer}".scan(/#[[:word:]-]+/)
-
-    self.hashtags = question_hashtags.uniq.map do |tag|
-      Hashtag.find_or_create_by(name: tag.downcase)
-    end
+  def destroy_unused_tags
+    Hashtag.left_outer_joins(:questions).where(questions: { id: nil }).destroy_all
   end
 end

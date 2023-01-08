@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_many :questions, dependent: :delete_all
+  has_many :questions, dependent: :destroy
 
   has_secure_password
 
