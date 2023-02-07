@@ -4,4 +4,8 @@ class Hashtag < ApplicationRecord
 
   validates :name, presence: true
   validates :name, format: { with: /#[[:word:]-]+/ }
+
+  def to_param
+    name
+  end
 end
