@@ -4,7 +4,6 @@ class User < ApplicationRecord
   has_secure_password
 
   before_validation :downcase_nickname
-  before_create :set_color_navbar
 
   validates :email, presence: true, uniqueness: true, format: { with: /\A[\w\-.]+@[\w\-]+\.[a-z]+\z/i }
   validates :nickname, presence: true, uniqueness: true, length: { in: 3..40 }, format: { with: /\A\w+\z/ }
@@ -21,11 +20,5 @@ class User < ApplicationRecord
 
   def downcase_nickname
     nickname&.downcase!
-  end
-
-  def set_color_navbar
-    unless self.navbar_color.present?
-      self.navbar_color = '#370617'
-    end
   end
 end

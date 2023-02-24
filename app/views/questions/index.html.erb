@@ -15,7 +15,7 @@
     <p class="text-sm">
       <% @hashtags.each do |hashtag| %>
         <b class="text-red">
-          <%= link_to hashtag.name, hashtag_path(hashtag) %>
+          <%= link_to hashtag.name, hashtag_path(hashtag.name) %>
         </b>
       <% end %>
     </p>

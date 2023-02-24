@@ -5,8 +5,4 @@ class Hashtag < ApplicationRecord
   has_many :questions, through: :question_hashtags, source: :question
 
   validates :name, presence: true
-
-  def to_param
-    name
-  end
 end
