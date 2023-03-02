@@ -1,5 +1,5 @@
 class HashtagsController < ApplicationController
   def show
-    @hashtag = Hashtag.joins(:questions).distinct.find_by!(name: params[:name].downcase)
+    @hashtag = Hashtag.where_exists(:questions).find_by!(name: params[:name].downcase)
   end
 end
