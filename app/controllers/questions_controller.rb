@@ -37,7 +37,7 @@ class QuestionsController < ApplicationController
   def index
     @questions = Question.order(created_at: :desc).last(10)
     @users = User.order(created_at: :desc).last(10)
-    @hashtags = Hashtag.joins(:questions).distinct.limit(10)
+    @hashtags = Hashtag.where_exists(:questions).limit(10)
   end
 
   def new
